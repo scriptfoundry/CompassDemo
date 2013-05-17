@@ -1,0 +1,202 @@
+* {
+    margin:0;
+    border:0;
+    padding: 0;
+    line-height:1em;
+    font-size:1em;
+}
+
+body {
+    background-color: #ffffff;
+    background-image: url('../images/background_gradient.png');
+    background-repeat: repeat-x;
+    font-size:16px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.logo {
+    position: relative;
+    left:100px;
+}
+
+.topnav {
+    position: relative;
+    left: 100px;
+}
+
+.topnav a {
+    display: inline-block;
+    height: 24px;
+}
+
+.topnav b {
+    display:none;
+}
+
+.topnav a.item1 {
+    background-image: url(../images/textsprites/topnav_item1_off.png);
+    width:50px;
+}
+.topnav a.item1:hover {
+    background-image: url(../images/textsprites/topnav_item1_on.png);
+}
+
+.topnav a.item2 {
+    background-image: url(../images/textsprites/topnav_item2_off.png);
+    width:48px;
+}
+.topnav a.item2:hover {
+    background-image: url(../images/textsprites/topnav_item2_on.png);
+}
+
+.topnav a.item3 {
+    background-image: url(../images/textsprites/topnav_item3_off.png);
+    width:52px;
+}
+.topnav a.item3:hover {
+    background-image: url(../images/textsprites/topnav_item3_on.png);
+}
+
+.topnav a.item4 {
+    background-image: url(../images/textsprites/topnav_item4_off.png);
+    width:66px;
+}
+.topnav a.item4:hover {
+    background-image: url(../images/textsprites/topnav_item4_on.png);
+}
+
+.topnav a.item5 {
+    background-image: url(../images/textsprites/topnav_item5_off.png);
+    width:95px;
+}
+.topnav a.item5:hover {
+    background-image: url(../images/textsprites/topnav_item5_on.png);
+}
+
+.topnav a.item6 {
+    background-image: url(../images/textsprites/topnav_item6_off.png);
+    width:86px;
+}
+.topnav a.item6:hover {
+    background-image: url(../images/textsprites/topnav_item6_on.png);
+}
+
+.topnav a.item7 {
+    background-image: url(../images/textsprites/topnav_item7_off.png);
+    width:83px;
+}
+.topnav a.item7:hover {
+    background-image: url(../images/textsprites/topnav_item7_on.png);
+}
+
+.topnav a.item8 {
+    background-image: url(../images/textsprites/topnav_item8_off.png);
+    width:80px;
+}
+.topnav a.item8:hover {
+    background-image: url(../images/textsprites/topnav_item8_on.png);
+}
+
+.divider {
+    position: relative;
+    left:100px;
+    width: 560px;
+    height:16px;
+    background-image: url(../images/textsprites/hr_arrow.png);
+}
+.divider hr {
+    display: none;
+}
+
+.sidenav {
+    float:left;
+    padding-left: 16px;
+
+}
+
+.sidenav a {
+    display:block;
+    width:84px;
+    height:12px;
+}
+
+.sidenav b {
+    display: none;
+}
+
+.sidenav a.item1 {
+    height:19px;
+    background-image: url(../images/textsprites/sidenav_item1_off.png);
+}
+.sidenav a.item1:hover {
+    background-image: url(../images/textsprites/sidenav_item1_on.png);
+}
+
+.sidenav a.item2 {
+    background-image: url(../images/textsprites/sidenav_item2_off.png);
+}
+.sidenav a.item2:hover {
+    background-image: url(../images/textsprites/sidenav_item2_on.png);
+}
+
+.sidenav a.item2 {
+    background-image: url(../images/textsprites/sidenav_item2_off.png);
+}
+.sidenav a.item2:hover {
+    background-image: url(../images/textsprites/sidenav_item2_on.png);
+}
+
+.sidenav a.item3 {
+    background-image: url(../images/textsprites/sidenav_item3_off.png);
+}
+.sidenav a.item3:hover {
+    background-image: url(../images/textsprites/sidenav_item3_on.png);
+}
+
+.sidenav a.item4 {
+    background-image: url(../images/textsprites/sidenav_item4_off.png);
+}
+.sidenav a.item4:hover {
+    background-image: url(../images/textsprites/sidenav_item4_on.png);
+}
+
+.sidenav a.item5 {
+    background-image: url(../images/textsprites/sidenav_item5_off.png);
+}
+.sidenav a.item5:hover {
+    background-image: url(../images/textsprites/sidenav_item5_on.png);
+}
+
+.sidenav a.item6 {
+    background-image: url(../images/textsprites/sidenav_item6_off.png);
+}
+.sidenav a.item6:hover {
+    background-image: url(../images/textsprites/sidenav_item6_on.png);
+}
+
+.sidenav a.item7 {
+    background-image: url(../images/textsprites/sidenav_item7_off.png);
+}
+.sidenav a.item7:hover {
+    background-image: url(../images/textsprites/sidenav_item7_on.png);
+}
+
+.sidenav a.item8 {
+    background-image: url(../images/textsprites/sidenav_item8_off.png);
+}
+.sidenav a.item8:hover {
+    background-image: url(../images/textsprites/sidenav_item8_on.png);
+}
+
+.body {
+    padding-left: 110px;
+    width:600px;
+}
+
+.body h2 {
+    padding: 0.5em 0 1em 0;
+}
+
+.body p {
+    padding-bottom: 1em;
+}

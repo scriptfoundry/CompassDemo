@@ -38,6 +38,8 @@ At this point, just take a look at the files and get a sense where everything is
 
 This is styled page with hand-written CSS that makes the page look and behave as expected using "modern" HTML and CSS. This is how a page would probably be laid out without using sprites and without using Compass. The hover-state is controlled via CSS (where some people might argue it does not belong).
 
+Note that because we're not preloading the images, they are loaded when the rollover happens. This will cause the images to "pop" into view after a delay. This won't be too bad on `localhost`, but on a slow or distant connect, the effect is brutal.
+
 #### Try this:
 
 At this stage, we're ready to try installing Compass. 
