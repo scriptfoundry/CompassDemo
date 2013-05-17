@@ -26,7 +26,13 @@ To use Compass, you need to install the following:
 
 ## The steps
 
+All of these steps can be loaded via Git. You just need to do a `git checkout [tag]` and then clean out any extraneous files by doing a `git clean --force`.
+
 ### 1. `step1` -- Unstyled content
+
+    # Check out the code from git
+    git checkout step1
+    git clean --force
 
 This is a completely unstyled page with a handful of somewhat semantic HTML navigation elements. There is a file folder full of images, only one of which is actually used. There is no CSS and at this point, no Compass/Sass.
 
@@ -36,9 +42,13 @@ At this point, just take a look at the files and get a sense where everything is
 
 ### 2. `step2` -- Styled "modern" CSS
 
-This is styled page with hand-written CSS that makes the page look and behave as expected using "modern" HTML and CSS. This is how a page would probably be laid out without using sprites and without using Compass. The hover-state is controlled via CSS (where some people might argue it does not belong).
+	# Check out the code from git
+	git checkout step2
+	git clean --force
 
-Note that because we're not preloading the images, they are loaded when the rollover happens. This will cause the images to "pop" into view after a delay. This won't be too bad on `localhost`, but on a slow or distant connect, the effect is brutal.
+This is styled page with hand-written CSS that makes the page look and behave as expected using "modern" HTML and CSS techniques. This is how a page would probably be laid out without using sprites and without using Compass. The hover-state is controlled via CSS (where some people might argue it does not belong), which means we're using the `:hover` pseudo-class, rather than jQuery augmentation, so the css ends up being a lot longer.
+
+Note that because we're not preloading the images, they are loaded when the rollover happens. This will cause the images to "pop" into view after a delay. This won't be too bad on a very fast connection, but on a slow or distant connect, the effect is brutal. You'd probably get around this by preloading the hover-state images.
 
 #### Try this:
 
@@ -50,8 +60,8 @@ At this stage, we're ready to try installing Compass.
 
 This will create several files and folders, including:
  * `config.rb` -- Edit this file to control what Compass does when you run it
- * `/sass/` -- This is where you will store your Sass-style CSS files. Every `.scss` file that appears here will be compiled and stored in the folder below.
- * `/stylesheets/` -- You will never need to edit any of these files. But you will point your HTML files to use the files here. Each file you see here should have a corresponding `.scss` file in the `/sass/` folder.
+ * `/sass/` -- This is where you will store your Sass-style CSS files. Every `.scss` file that appears here will be compiled and stored in the folder below. By default, Compass creates three files: `screen.scss`, `print.scss` and `ie.scss`. We're going to just work with `screen.scss`, so you can delete the other files if you want. 
+ * `/stylesheets/` -- You will never need to edit any of these files. But you will point your HTML files to use the files here. Each file you see here should have a corresponding `.scss` file in the `/sass/` folder. You can delete these files and Compass will rewrite them the next time you run `compass compile`.
 
 #### Tips:
 
@@ -59,7 +69,11 @@ Instead of running `compass init`, you can also run the command `compass create 
 
 ### 3. `step3` -- Compass first installation
 
-This version includes the basic Compass files, including `config.rb` (a Ruby file) and three standard `scss` files (the actual Compass files). The project has not been "compiled" yet. You compile a project to create the CSS files (and other Compass-created assets) by running the command `compass compile`. Let's try doing that.
+    # Check out the code from git
+    git checkout step3
+    git clean --force
+
+This version already includes the basic Compass files, including `config.rb` (a Ruby file) and three standard `scss` files (the actual Compass files). The project has not been "compiled" yet. You compile a project to create the CSS files (and other Compass-created assets) by running the command `compass compile`. Let's try doing that.
 
 #### Try this:
 
@@ -89,7 +103,11 @@ To stop watching, hit `Ctrl+c` (or `Command+c` on a Mac).
 
 ### 4. `step4` -- Building the sprite image
 
-Making a sprite image is a huge pest. It requires pixel-precision and making changes can sometimes be a massive undertaking (especially if you need to rescale a bunch of stuff). Here's where the move to Compass really pays for itself. 
+    # Check out the code from git
+    git checkout step4
+    git clean --force
+
+Making a sprite image is a huge pest. Its component images are completely divorced from the original design, it requires pixel-precision and making changes can sometimes be a massive undertaking (especially if you need to rescale a bunch of stuff). Here's where the move to Compass really pays for itself. 
 
 Here, we're only going to get Compass to build the sprite file. It can also build the CSS to support that sprite file, but we'll get to that in the next step.
 
@@ -99,19 +117,23 @@ This is super-simple. You already have a folder full of your sprite images in `/
 
     @import "../images/textsprites/*.png";
 
-Now when you compile, it will take a lot longer to finish, and afterwards you should see at least a couple of changes. First, there will be a new image with a name like `images/textsprite-s12132a4b86.png`. There will also be a new entry in `css/screen.css` to include the image, but we won't worry about that just yet. For now, try adding a new image to your sprites folder and recompiling. Try removing some images and recompiling. Notice that the file name keeps changing every time something inside the sprites folder changes. 
+Now when you compile, it will take a lot longer to finish, and afterwards you should see at least a couple of changes. First, there will be a new image with a name like `images/textsprite-s12132a4b86.png` (the exact name will probably be different every time, for every person). There will also be a new entry in `css/screen.css` to include the image, but we won't worry about that just yet. For now, try adding a new `png` image (any `.png` image, from anywhere) to your sprites folder and recompiling. Try removing some images and recompiling. Notice that the file name keeps changing every time something inside the sprites folder changes. 
 
 ### 5. `step5` -- Build the sprite image and add each sprite to the CSS
 
-Just building the sprite image is nice -- it takes a load of work off the designer's list. But setting up all the rules is (sometimes) an even bigger task. So let's see how Compass helps.
+    # Check out the code from git
+    git checkout step5
+    git clean --force
+
+So now the designer's work has become much more manageable. But setting up all the rules is (sometimes) an even bigger task. So let's see how Compass helps.
 
 #### Try this:
 
 All we're going to do is add a couple more lines to the `screen.scss` file:
 
     @import "../images/textsprites/*.png";
-	@include all-textsprites-sprites;
 	$textsprites-sprite-dimensions: true;
+	@include all-textsprites-sprites;
 	
 And recompile. Unless you have make an image change, this should finish almost immediately. Take a look at `screen.css` and notice all the new sprite rules; for example:
 
@@ -121,18 +143,20 @@ And recompile. Unless you have make an image change, this should finish almost i
       width: 80px;
     }
 
-This means that if you apply the CSS class name, .textsprites-topnav_item8_on, to an element, it will instantly get a background that previously was in the image called `topnav_item8_on.png`. Note, that you may need to also apply `display:block`/`display:inlike-block` and `position:relative`/`position:absolute` to that element.
+This means that if you apply the CSS class name, .textsprites-topnav_item8_on, to an element, it will instantly get a background that previously was in the image called `topnav_item8_on.png`. You may need to add `position:relative/absolute` or `display:block/inline-block` if you are using a natural inline element (like `<span>` or `<a>` (this is a normal CSS requirement, not anything to do with Compass).
+
+The magic for all this is in the line that says `@include all-textsprites-sprites;`, which basically tells Compass to `include` `all` `sprites` in the `textsprites` folder. And as long as you set the variable `$textsprites-sprite-dimensions` to `true`, Compass will also measure every image and include the width and height measurements in the CSS output. Note that any options like this have to precede the `@import` command.
 
 #### Now try this:
 
-Sometimes, you don't need all the rules. Or sometimes, like with our rollovers, these rules aren't actually useful on their own. For this, we may want to check-pick the parts of the sprite we want to use. Let's clean up by reverting back to `step5` (we'll lose all our changes):
+Sometimes, you don't need all the rules. Or sometimes, like with our rollovers, these rules aren't actually useful on their own. For this, we may want to check-pick the parts of the sprite we want to use. Or maybe we will want the individual rules to be inserted in very specific places. Let's try that now. First, clean up by reverting back to `step5` (we'll lose all our changes):
 
-    git clean -f
+    compass clean
 
 Now, let's add these lines:
 
-    @import "../images/textsprites/*.png";
     $textsprites-sprite-dimensions: true;
+    @import "../images/textsprites/*.png";
 
     .item2 {
         @include textsprites-sprite('topnav_item2_off');
@@ -140,6 +164,8 @@ Now, let's add these lines:
     .item2:hover {
         @include textsprites-sprite('topnav_item2_on'); 
     }
+
+The difference this time is that now we just have the rules for `.item2` and `.item2:hover` and not all the other images. This is because we specified only that we wanted `.item2` to `include` the `sprite` in the folder `textsprites` for `topnav_item2_off.png` (`.item2 { @include textsprites-sprite('topnav_item2_on'); }). 
 
 Recompile and see what it looks like. Well, the sprite is there, but so is the text that it's supposed to replace. So let's add three more lines to hide that text:
 
@@ -149,7 +175,39 @@ Recompile and see what it looks like. Well, the sprite is there, but so is the t
 
 That works well. Now we just need to do the rest of the file. 
 
+#### Now try this:
+
+Did you notice that the change you made to the top nav was also made to the side nav? That's because the item is identified with the same class name (e.g. `item2`), and in most cases this happens a lot completely by accident. Sass provides a really nice way to isolate the changes so that this sort of thing can't happen.
+
+The blocks above can be rewritten like this:
+
+.topnav {
+	height:24px;
+	
+	a {
+		display:inline-block;
+	}
+	
+	b {
+		display:none;
+	}
+	
+	.item2 {
+        @include textsprites-sprite('topnav_item2_off');
+	}
+	
+	.item2:hover {
+        @include textsprites-sprite('topnav_item2_on');
+	}
+}
+
+Try compiling that and see what the output is.
+
 ### 6. `step6` -- Add a nice linear gradient (using CSS3 with fallbacks)
+
+    # Check out the code from git
+    git checkout step6
+    git clean --force
 
 CSS3 supports lots of really great advanced functions, but the browser coverage is spotty, and in some cases it is available only as an "experimental" feature that requires "browser prefixes". For many of these, Compass doesn't quite do all the work for you, but it makes it considerably easier. For example, let's look at replacing the grey linear gradient in the page background. 
 
@@ -167,9 +225,13 @@ Now, let's add both the fallback and the CSS3 rules. In general, include the CSS
       background-repeat: repeat-x;
     }
 
-Note that the `url()` is the fallback for browser that don't support CSS3 (IE and some mobile browsers).
+Note that the first background rule, `url()`, is the fallback for browser that don't support CSS3 (IE and some mobile browsers).
 
 ### 7. `step7` -- Stop hard-coding "magic" numbers. Use variables instead.
+
+# Check out the code from git
+git checkout step7
+git clean --force
 
 In the last example, we used some "magic" numbers, `#818181` and `#ffffff`. It's not so bad right now, but imagine that these values appear in lots of places in your site design. Now imagine that you change the colour scheme a bit. How would you change it? Search-and-replace? Try using variables instead:
 
