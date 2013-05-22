@@ -59,9 +59,11 @@ At this stage, we're ready to try installing Compass.
  3. Enter `compass init`.
 
 This will create several files and folders, including:
- * `config.rb` -- Edit this file to control what Compass does when you run it
- * `/sass/` -- This is where you will store your Sass-style CSS files. Every `.scss` file that appears here will be compiled and stored in the folder below. By default, Compass creates three files: `screen.scss`, `print.scss` and `ie.scss`. We're going to just work with `screen.scss`, so you can delete the other files if you want. 
- * `/stylesheets/` -- You will never need to edit any of these files. But you will point your HTML files to use the files here. Each file you see here should have a corresponding `.scss` file in the `/sass/` folder. You can delete these files and Compass will rewrite them the next time you run `compass compile`.
+
+ + `config.rb` -- Edit this file to control what Compass does when you run it
+ + `/sass/` -- This is where you will store your Sass-style CSS files. Every `.scss` file that appears here will be compiled and stored in the folder below. By default, Compass creates three files: `screen.scss`, `print.scss` and `ie.scss`. We're going to just work with `screen.scss`, so you can delete the other files if you want. 
+ + `/sass/screen.scss` -- This file (and `print.scss` and `ie.scss`) is the default starting point for your Sass code. There's nothing special about it, and you can safely delete it and start with a scss file named something better. 
+ + `/stylesheets/` -- This folder may initially be empty, but will automatically repopulate with your CSS files every time you do a `compass compile`. You will never need to edit any of these files. But you will point your HTML files at the files here -- NOT at the scss files. Each file you see here will have a corresponding `.scss` file in the `/sass/` folder. You can delete these files and Compass will rewrite them the next time you run `compass compile`.
 
 #### Tips:
 
@@ -75,7 +77,7 @@ Instead of running `compass init`, you can also run the command `compass create 
 
 This version already includes the basic Compass files, including `config.rb` (a Ruby file) and three standard `scss` files (the actual Compass files). The project has not been "compiled" yet. You compile a project to create the CSS files (and other Compass-created assets) by running the command `compass compile`. Let's try doing that.
 
-#### Try this:
+#### Try this: Compiling
 
 First, let's clean out the compass project. You can do this either at the Git level (by running `git clean --force -d`). But let's try doing it with Compass now:
 
@@ -89,9 +91,11 @@ Now, let's compile:
 
     compass compile
 
-Take a look at what happened. See what files were created. Try making a chance to one of the `.scss` files (such as `/sass/screen.scss`) and compile again. Maybe you got an error -- Compass will validate your Sass to make sure it's valid. Its validation rules are pretty strict, so simple CSS mistakes that might otherwise creep into your project will get stopped at this stage. That's a pretty nice feature. 
+Take a look at what happened. See what files were created. Try making a change to one of the `.scss` files (such as `/sass/screen.scss`) and compile again. Maybe you got an error -- Compass will validate your Sass to make sure it's valid. Its validation rules are pretty strict, so simple CSS mistakes that might otherwise creep into your project will get stopped at this stage. That's a pretty nice feature. 
 
-But you know, it's a huge hassle having to compile after every single change. Here, Compass has a utility that really helps. Try running this:
+#### Try this: Automatic compiling
+
+It's a huge hassle having to compile after every single change. Here, Compass has a utility that really helps. Try running this:
 
     compass watch
 
@@ -100,6 +104,19 @@ This will compile your project and then continuously check for changes to your `
 Try making a change and see what happens to the HTML file in your browser! It can take a couple of seconds (or more) to compile the project, depending on how much it has to do, so your change might not show up immediately.
 
 To stop watching, hit `Ctrl+c` (or `Command+c` on a Mac).
+
+#### Try this: Changing output style
+
+By default, Compass outputs CSS in a very readable, debuggable form. This helps during development, but it sucks for production. Let's try changing that.
+
+ 1. Add some normal CSS to `sass/screen.scss` (add a few rules so you can really see the difference)
+ 2. Open `config.rb`
+ 3. Add a line that says `output_style = :compressed`
+ 4. Save your changes
+ 5. Run `compass config`
+
+You should notice immediately that the `stylesheets/screen.css` has been significantly compressed. There are four output styles: `:expanded`, `:nested`, `:compact` or `:compressed`. The colon here is important, representing a symbol in Ruby.
+
 
 ### 4. `step4` -- Building the sprite image
 
@@ -113,7 +130,7 @@ Here, we're only going to get Compass to build the sprite file. It can also buil
 
 #### Try this:
 
-This is super-simple. You already have a folder full of your sprite images in `/images/textsprites/`. Note that the large background image is not part of this folder. What we'd like is to put all of those sprites into a single sprite image. To do this, we simply add this line to one of our `.scss` files:
+This is super-simple. You already have a folder full of your sprite images in `images/textsprites/`. Note that the large background image is not part of this folder. What we'd like is to put all of those sprites into a single sprite image. To do this, we simply add this line to one of our `.scss` files:
 
     @import "../images/textsprites/*.png";
 
@@ -175,11 +192,26 @@ Recompile and see what it looks like. Well, the sprite is there, but so is the t
 
 That works well. Now we just need to do the rest of the file. 
 
-#### Now try this:
+### 6. `step6` -- Organizing rules better
 
-Did you notice that the change you made to the top nav was also made to the side nav? That's because the item is identified with the same class name (e.g. `item2`), and in most cases this happens a lot completely by accident. Sass provides a really nice way to isolate the changes so that this sort of thing can't happen.
+    # Check out the code from git
+    git checkout step6
+    git clean --force
 
-The blocks above can be rewritten like this:
+
+Did you notice in the previous commit that the change you made to the top nav was also made to the side nav? That's because the item is identified with the same class name (e.g. `item2`), and in most cases this happens a lot completely by accident. Sass provides a really nice way to isolate the changes so that this sort of thing can't happen.
+
+In this case, we might include the `.item` class inside the `.topnav` class, like this:
+
+    .topnav {
+        /* .topnav rules */
+
+        .item {
+            /* .topnav .item rules */
+        }
+    }
+
+So the blocks above can be rewritten like this:
 
 .topnav {
 	height:24px;
@@ -203,10 +235,10 @@ The blocks above can be rewritten like this:
 
 Try compiling that and see what the output is.
 
-### 6. `step6` -- Add a nice linear gradient (using CSS3 with fallbacks)
+### 7. `step7` -- Add a nice linear gradient (using CSS3 with fallbacks)
 
     # Check out the code from git
-    git checkout step6
+    git checkout step7
     git clean --force
 
 CSS3 supports lots of really great advanced functions, but the browser coverage is spotty, and in some cases it is available only as an "experimental" feature that requires "browser prefixes". For many of these, Compass doesn't quite do all the work for you, but it makes it considerably easier. For example, let's look at replacing the grey linear gradient in the page background. 
@@ -227,11 +259,11 @@ Now, let's add both the fallback and the CSS3 rules. In general, include the CSS
 
 Note that the first background rule, `url()`, is the fallback for browser that don't support CSS3 (IE and some mobile browsers).
 
-### 7. `step7` -- Stop hard-coding "magic" numbers. Use variables instead.
+### 8. `step8` -- Stop hard-coding "magic" numbers. Use variables instead.
 
-# Check out the code from git
-git checkout step7
-git clean --force
+    # Check out the code from git
+    git checkout step8
+    git clean --force
 
 In the last example, we used some "magic" numbers, `#818181` and `#ffffff`. It's not so bad right now, but imagine that these values appear in lots of places in your site design. Now imagine that you change the colour scheme a bit. How would you change it? Search-and-replace? Try using variables instead:
 
@@ -242,7 +274,13 @@ In the last example, we used some "magic" numbers, `#818181` and `#ffffff`. It's
     $color4: #FFDA96;
     $color5: #64876C;
 
-Now we can use these colour variables
+Now we can use these colour variables in place of hard-coded variables. For example:
+
+    body {
+	    background-color: $color1;
+	    color: $color2;
+	    border: 1px solid $color3;
+    }
 
 #### Tip:
 
@@ -251,23 +289,104 @@ Variables aren't just for numeric colour values. How about named colours? Or wid
     $columnwidth: 40em;
     $headlinefont: Papyrus, "MS Comic Sans";
 
-#### Awesome tip:
+#### Awesome tip: Math!
 
-Check this:
+Say you have a banner you want centred within your main column. Your HTML might look like this:
 
-    $columnwidth: 50em;
-    $columnimagepadding: 5px;
-    $columncenter: $columnwidth / 2;
-    $columnimagewidth: $columnwidth - ($columnpadding * 2);
+	<div class="mainColumn">
+		<div class="mainBanner">
+			Banner content
+		</div>
+	</div>
 
-### 8. `step8` -- Compass can help you do things
+The way you centre content in CSS is pretty simple, but it involves a lot of magic numbers. With Sass, you might want to use a combination of some configuration settings and some simple math.
 
-You can do some pretty neat things with Compass, via the extremely powerful functions that come with Sass.
+	/* Page configuration settings */
+	$columnwidth: 430px;
+	$columnpadding: 60px;
+	$columncenter: $columnwidth / 2;
 
-Here's an example. 
+	/* 16x9 banner area configuration settings */
+	$bannerwidth: $columnwidth - ($columnpadding * 2);
+	$bannerheight: $bannerwidth * 9 / 16;
+
+	/* Rules for .mainColumn */
+	.mainColumn {
+		position: relative;
+		width: $columnwidth;
+		border: 1px solid red;
+
+		.mainBanner {
+			position: relative;
+			left: $columncenter;
+			width: $bannerwidth;
+			height: $bannerheight;
+			border:1px solid blue;
+			margin-left: -$bannerwidth / 2;
+		}
+	}
+
+### 9. `step9` -- Staying DRY
+
+    # Check out the code from git
+    git checkout step9
+    git clean --force
+
+Sass provides a couple of main ways of reusing code. One way is by extending a CSS class. If you are familiar with Object Oriented Programming, this should be very familiar territory. But if you're not, you can think of this as a kind of copy-and-paste of properties from one thing to something new. In this case, if you tell Sass that a new CSS class should `extend` some other class, then you're asking it to make sure all of the rules from the other class will get applied to your new class too. 
+
+For simple jobs, where you want a common set of rules to apply to several CSS classes, `extend` is by far the best tool, because it usually (but not always) produces shorter code (because it's DRYer).
+
+The second way is with 'mixins'. Mixins are basically macros. You declare a rule or a set of rules with a unique name (that's the `@mixin`), and then you `@include` this wherever you need it. 
+
+Mixins have one other 'killer' feature: they can be used like functions in other languages. You can pass extra parameters in to create unique permutations every time you use it. This isn't new to CSS (for example, you have been able to pass parameters to `rgb()` and `url()`), but what is new is that now you can make your own custom functions. 
+
+#### Try this:
+
+I've created a couple of new classes you can use to `@extend` or to `@include` mixins into. Take a look at them now. I've also added three new HTML elements to `index.html`:
+
+    <div class="wideRedBox"></div>
+    <div class="greyBox"></div>
+    <div class="tinyBox"></div>
+
+Try styling `wideRedBox` by creating this new class in `sass/screen.scss', and then run `compass compile`:
+
+    .wideRedBox {
+        width: 250px;
+        color: red;
+
+        @extend .standardBox;
+	}
+
+Now, try doing the same thing with a `@mixin`:
+
+    .greyBox {
+        background-color: #888888;
+
+        @include mixinBox;
+    }
+	
+Try compiling and compare the difference in the resulting CSS. The `@extend` definitely does a better job at efficiently sharing CSS rules, while the mixin does a 'dumb copy-and-paste' every time it's called. 
+
+And finally, try using a `@mixin` with arguments:
+
+    .tinyBox {
+        @include resizeableMixinBox(25px, 25px);
+
+        background-color: #444444;
+    }
 
 
-### 9. `step9` -- The final project
-Here, we've gone from `step2`'s 38 requests of 125KB, down to 3 requests totalling only 50KB. 
+### 10. `final` -- The final project, Compass style
+
+    # Check out the code from git
+    git checkout step10
+    git clean --force
+
+
+This is the same site as in `step2`, but uses Sass and sprites generated by Compass. We've gone from `step2`'s 38 requests of 125KB, down to 3 requests totalling only 50KB. 
 
 Because of the `:hover` in the navigation elements, the CSS isn't as simple as it might be, but the code is a lot more readable than before. There are fewer "magic" numbers, and it's a lot easier and safer to refactor than before.
+
+If you need to redo all the navigation items in a larger font, just export the bigger files, copy them to the sprites folder and recompile.
+
+#### The end
