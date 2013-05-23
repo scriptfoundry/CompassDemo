@@ -4,28 +4,201 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+@import "compass/css3";
 
-/* EXTENSIONS */
-.standardBox {
-	position:relative;
-	width: 100px;
-	height: 100px;
-	border: 1px solid gray;
+@import "../images/textsprites/*.png";
+$textsprites-sprite-dimensions: true;
+
+
+/* COLOR THEME FROM https://kuler.adobe.com/#themeID/2380266 */
+$grey: #999999;
+$lightest: #ffffff;
+$darkest: #000000;
+
+body {
+  background: url(../images/background_gradient.png) repeat-x;
+  @include background-image(linear-gradient(top, $grey, $lightest 150px));
+  background-repeat: repeat-x;
+  color: $darkest;
+  background-color: $lightest;
+  font-size:16px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.logo {
+  position: relative;
+  left:100px;
+  @include textsprites-sprite('logo');
 
-/* MIXINS */
-@mixin mixinBox {
-	position:relative;
-	width: 200px;
-	height:150px;
-	border: 1px solid black;
+  b {
+    display: none;
+  }
 }
 
-/* MIXIN WITH ARGUMENTS */
-@mixin resizeableMixinBox($width, $height) {
-	position:relative;
-	width: $width;
-	height:$height;
-	border: 2px solid gray;
+.topnav {
+  position: relative;
+  left: 100px;
+
+  b {
+    display:none;
+  }
+
+  a {
+    display: inline-block;
+    position: relative;
+  }
+  .item1 {
+    @include textsprites-sprite('topnav_item1_off');
+  }
+  .item1:hover {
+    @include textsprites-sprite('topnav_item1_on');
+  }
+
+  .item2 {
+    @include textsprites-sprite('topnav_item2_off');
+  }
+  .item2:hover {
+    @include textsprites-sprite('topnav_item2_on');
+  }
+
+  .item3 {
+    @include textsprites-sprite('topnav_item3_off');
+  }
+  .item3:hover {
+    @include textsprites-sprite('topnav_item3_on');
+  }
+
+  .item4 {
+    @include textsprites-sprite('topnav_item4_off');
+  }
+  .item4:hover {
+    @include textsprites-sprite('topnav_item4_on');
+  }
+
+  .item5 {
+    @include textsprites-sprite('topnav_item5_off');
+  }
+  .item5:hover {
+    @include textsprites-sprite('topnav_item5_on');
+  }
+
+  .item6 {
+    @include textsprites-sprite('topnav_item6_off');
+  }
+  .item6:hover {
+    @include textsprites-sprite('topnav_item6_on');
+  }
+
+  .item7 {
+    @include textsprites-sprite('topnav_item7_off');
+  }
+  .item7:hover {
+    @include textsprites-sprite('topnav_item7_on');
+  }
+
+  .item8 {
+    @include textsprites-sprite('topnav_item8_off');
+  }
+  .item8:hover {
+    @include textsprites-sprite('topnav_item8_on');
+  }
+}
+
+.divider {
+  position: relative;
+  left:100px;
+  @include textsprites-sprite('hr_arrow');
+
+  hr {
+    display: none;
+  }
+}
+
+.sidenav {
+  float:left;
+  padding-left: 16px;
+
+  a {
+    display:block;
+    width:84px;
+    height:12px;
+  }
+
+  b {
+    display: none;
+  }
+
+  .item1 {
+    @include textsprites-sprite('sidenav_item1_off');
+  }
+  .item1:hover {
+    @include textsprites-sprite('sidenav_item1_on');
+  }
+
+  .item2 {
+    @include textsprites-sprite('sidenav_item2_off');
+  }
+  .item2:hover {
+    @include textsprites-sprite('sidenav_item2_on');
+  }
+
+  .item3 {
+    @include textsprites-sprite('sidenav_item3_off');
+  }
+  .item3:hover {
+    @include textsprites-sprite('sidenav_item3_on');
+  }
+
+  .item4 {
+    @include textsprites-sprite('sidenav_item4_off');
+  }
+  .item4:hover {
+    @include textsprites-sprite('sidenav_item4_on');
+  }
+
+  .item5 {
+    @include textsprites-sprite('sidenav_item5_off');
+  }
+  .item5:hover {
+    @include textsprites-sprite('sidenav_item5_on');
+  }
+
+  .item6 {
+    @include textsprites-sprite('sidenav_item6_off');
+  }
+  .item6:hover {
+    @include textsprites-sprite('sidenav_item6_on');
+  }
+
+  .item7 {
+    @include textsprites-sprite('sidenav_item7_off');
+  }
+  .item7:hover {
+    @include textsprites-sprite('sidenav_item7_on');
+  }
+
+  .item8 {
+    @include textsprites-sprite('sidenav_item8_off');
+  }
+  .item8:hover {
+    @include textsprites-sprite('sidenav_item8_on');
+  }
+
+}
+
+.body {
+  border: 1px solid $darkest;
+  padding-left: 110px;
+  width:600px;
+  @include border-radius(1em);
+
+  h2 {
+    padding: 0.5em 0 1em 0;
+    font-weight: bold;
+    font-size:1.1em;
+  }
+
+  p {
+    padding: 0 1em 1em 0;
+  }
 }
