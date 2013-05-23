@@ -4,3 +4,28 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+
+/* EXTENSIONS */
+.standardBox {
+	position:relative;
+	width: 100px;
+	height: 100px;
+	border: 1px solid gray;
+}
+
+
+/* MIXINS */
+@mixin mixinBox {
+	position:relative;
+	width: 200px;
+	height:150px;
+	border: 1px solid black;
+}
+
+/* MIXIN WITH ARGUMENTS */
+@mixin resizeableMixinBox($width, $height) {
+	position:relative;
+	width: $width;
+	height:$height;
+	border: 2px solid gray;
+}
